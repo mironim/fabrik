@@ -243,8 +243,6 @@ class JFormFieldFabrikModalrepeat extends JFormField
 			$str[] = '<div class="button2-left">';
 			$str[] = '	<div class="blank">';
 			$str[] = '<a id="' . $modalid . '_button" data-modal="' . $modalid . '">' . JText::_('JLIB_FORM_BUTTON_SELECT') . '</a>';
-			$str[] = '	</div>';
-			$str[] = '</div>';
 		}
 
 		if (is_array($this->value))
@@ -253,6 +251,8 @@ class JFormFieldFabrikModalrepeat extends JFormField
 		}
 		$value = htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8');
 		$str[] = '<input type="hidden" name="' . $this->name . '" id="' . $this->id . '" value="' . $value . '" />';
+		$str[] = '	</div>';
+		$str[] = '</div>';
 
 		FabrikHelperHTML::framework();
 		FabrikHelperHTML::iniRequireJS();
