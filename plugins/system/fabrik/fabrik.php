@@ -63,6 +63,9 @@ class PlgSystemFabrik extends JPlugin
 	public static function js()
 	{
 		$config = JFactory::getConfig();
+		$app = JFactory::getApplication();
+		$task = $app->input->post->get('task','',CMD);
+
 		if ($config->get('caching') == 0)
 		{
 			$script = self::buildJs();
@@ -81,7 +84,7 @@ class PlgSystemFabrik extends JPlugin
 			$cacheFile = $folder . $file;
 
 			// Check for cached version
-			if (!JFile::exists($cacheFile))
+			if (!JFile::exists($cacheFile) || ($task == 'form.inlineedit'))
 			{
 				$script = self::buildJs();
 				file_put_contents($cacheFile, $script);
