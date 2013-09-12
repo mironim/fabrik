@@ -28,8 +28,7 @@ var fabrikCalendar = new Class({
 		},
 		monthday: {'width': 90, 'height': 80},
 		restFilterStart: 'na',
-		j3: false,
-		showFullDetails: false
+		j3: false
 	},
 
 	initialize: function (el) {
@@ -164,16 +163,13 @@ var fabrikCalendar = new Class({
 				'data-trigger' : 'click'
 			});
 			
-			if (this.options.showFullDetails) {
-				eventCont.set('data-task', 'viewCalEvent');
-			} else {
-				if (typeof(jQuery) !== 'undefined') {
-					jQuery(eventCont).popover();
-					eventCont.addEvent('click', function (e) {
-						this.popOver = eventCont;
-						
-					}.bind(this));
-				}
+			
+			if (typeof(jQuery) !== 'undefined') {
+				jQuery(eventCont).popover();
+				eventCont.addEvent('click', function (e) {
+					this.popOver = eventCont;
+					
+				}.bind(this));
 			}
 		} else {
 			eventCont = new Element('div', {
@@ -181,13 +177,9 @@ var fabrikCalendar = new Class({
 				'id': id,
 				'styles': style
 			});
-			if (this.options.showFullDetails) {
-				eventCont.set('data-task', 'viewCalEvent');
-			} else {
-				eventCont.addEvent('mouseenter', function (e) {
-					this.doPopupEvent(e, entry, label);
-				}.bind(this));
-			}
+			eventCont.addEvent('mouseenter', function (e) {
+				this.doPopupEvent(e, entry, label);
+			}.bind(this));
 		}
 
 		if (entry.link !== '' && this.options.readonly === false && this.options.j3 === false) {
@@ -220,6 +212,7 @@ var fabrikCalendar = new Class({
 				x = new Element('span').appendText(label);
 			}
 		}
+
 		eventCont.adopt(x);
 		return eventCont;
 	},
@@ -352,7 +345,6 @@ var fabrikCalendar = new Class({
 						opts.startMin = entry.startdate.getMinutes();
 						opts.endMin = entry.enddate.getMinutes();
 						opts['margin-left'] = 0;
-						console.log(entry, opts, td);
 						td.adopt(this._makeEventRelDiv(entry, opts, firstDate, td));
 					}
 					j ++;
@@ -1219,11 +1211,6 @@ var fabrikCalendar = new Class({
 
 		document.addEvent('click:relay(button[data-task=viewCalEvent], a[data-task=viewCalEvent])', function (event, target) {
 			event.preventDefault();
-			
-			// If opening directly from a calendar entery activeHoverEvent is not yet set.
-			if (!this.activeHoverEvent) {
-				this.activeHoverEvent = target.hasClass('fabrikEvent') ? target : target.getParent('.fabrikEvent');
-			}
 			this.viewEntry();
 		}.bind(this));
 

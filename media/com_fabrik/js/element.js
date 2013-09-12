@@ -302,20 +302,8 @@ var FbElement =  new Class({
 		this.update('');
 	},
 	
-	/**
-	 * Called from FbFormSubmit
-	 *  
-	 * @params   function  cb  Callback function to run when the element is in an 
-	 *                         acceptable state for the form processing to continue
-	 *                         Should use cb(true) to allow for the form submission,
-	 *                         cb(false) stops the form submission.
-	 * 
-	 * @return  void
-	 */
-	onsubmit: function (cb) {
-		if (cb) {
-			cb(true);
-		}
+	onsubmit: function () {
+		return true;
 	},
 	
 	/**

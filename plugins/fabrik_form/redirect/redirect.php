@@ -311,13 +311,14 @@ class PlgFabrik_FormRedirect extends PlgFabrik_Form
 		$store = array();
 		if ($this->data['save_in_session'] == '1')
 		{
-			$tmpData = $formModel->formData;
 			$groups = $formModel->getGroupsHiarachy();
 			foreach ($groups as $group)
 			{
 				$elements = $group->getPublishedElements();
 				foreach ($elements as $element)
 				{
+
+					$tmpData = $formModel->fullFormData;
 					if ($element->getElement()->name == 'fabrik_list_filter_all')
 					{
 						continue;
@@ -368,6 +369,8 @@ class PlgFabrik_FormRedirect extends PlgFabrik_Form
 					}
 				}
 			}
+			echo "<pre>";print_R($store);exit;
+
 			// Clear registry search form entries
 			$key = 'com_' . $package . '.searchform';
 
@@ -381,6 +384,7 @@ class PlgFabrik_FormRedirect extends PlgFabrik_Form
 
 			$app->setUserState('com_' . $package . '.searchform.form' . $formModel->get('id') . '.filters', $store);
 			$app->setUserState('com_' . $package . '.searchform.fromForm', $formModel->get('id'));
+
 		}
 	}
 

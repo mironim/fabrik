@@ -125,12 +125,7 @@ echo $this->plugintop;
 				 */
 				$this->elements = $group->elements;
 				echo $this->loadTemplate($group->tmpl);
-
-				if (!empty($group->outro)) : ?>
-					<div class="groupoutro"><?php echo $group->outro ?></div>
-				<?php
-				endif;
-			?>
+				?>
 			</fieldset>
 		<?php
 		$i++;

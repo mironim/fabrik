@@ -477,13 +477,9 @@ class FPagination extends JPagination
 			}
 			return $default;
 		}
-		elseif (isset($this->$property))
-		{
-			return $this->$property;
-		}
 		else
 		{
-			return $default;
+			return $this->get($property, $default);
 		}
 	}
 

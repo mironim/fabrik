@@ -373,12 +373,11 @@ class FabrikViewFormBase extends JViewLegacy
 			$shim['fabrik/form'] = $dep;
 
 			$deps = new stdClass;
-			$deps->deps = array('fab/fabrik', 'fab/element', 'fab/form-submit');
+			$deps->deps = array('fab/fabrik', 'fab/element');
 			$framework['fab/elementlist'] = $deps;
 
 			$srcs[] = 'media/com_fabrik/js/lib/form_placeholder/Form.Placeholder.js';
 			FabrikHelperHTML::addToFrameWork($srcs, 'media/com_fabrik/js/form');
-			FabrikHelperHTML::addToFrameWork($srcs, 'media/com_fabrik/js/form-submit');
 			FabrikHelperHTML::addToFrameWork($srcs, 'media/com_fabrik/js/element');
 		}
 
@@ -814,7 +813,7 @@ class FabrikViewFormBase extends JViewLegacy
 		}
 		$goBack = $model->isAjax() ? '' : FabrikWorker::goBackAction();
 		$form->gobackButton = $params->get('goback_button', 0)
-			? '<button type="button" class="btn button" name="Goback" ' . $goBack . '>' . $goBackLabel . '</button>' : '';
+			? '<button type="button" class="btn btn-primary button" name="Goback" ' . $goBack . '>' . $goBackLabel . '</button>' : '';
 
 		if ($model->isEditable() && $params->get('submit_button', 1))
 		{
@@ -827,7 +826,7 @@ class FabrikViewFormBase extends JViewLegacy
 				$submitIcon = '<i class="' . $submitIcon . '"></i>';
 				$submitLabel = $params->get('save_icon_location') == 'before' ? $submitIcon . '&nbsp;' . $submitLabel : $submitLabel . '&nbsp;' . $submitIcon;
 			}
-			$form->submitButton = '<button type="' . $button . '" class="btn btn-primary button ' . $submitClass . '" name="Submit">'
+			$form->submitButton = '<button type="' . $button . '" class="btn btn-success button ' . $submitClass . '" name="submit">'
 				. $submitLabel . '</button>';
 		}
 		else

@@ -154,14 +154,7 @@ var FbDateTime = new Class({
 		}
 	},
 
-	/**
-	 * Called from FbFormSubmit
-	 *  
-	 * @params   function  cb  Callback function to run when the element is in an acceptable state for the form processing to continue
-	 * 
-	 * @return  void
-	 */
-	onsubmit: function (cb) {
+	onsubmit: function () {
 		//convert the date back into mysql format before submitting - saves all sorts of shenanigans
 		//processing dates on the server.
 		var v = this.getValue();
@@ -175,7 +168,7 @@ var FbDateTime = new Class({
 				this.getDateField().value = v;
 			}
 		}
-		this.parent(cb);
+		return true;
 	},
 
 	/**
