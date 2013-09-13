@@ -64,7 +64,7 @@ class PlgSystemFabrik extends JPlugin
 	{
 		$config = JFactory::getConfig();
 		$app = JFactory::getApplication();
-		$task = $app->input->post->get('task','',CMD);
+		$task = $app->input->post->get('task','','CMD');
 
 		if ($config->get('caching') == 0)
 		{
