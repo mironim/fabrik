@@ -154,13 +154,23 @@ window.FbRadio = new Class({
 			if (typeOf(b) === "array") {
 				a.each(function (c) {
 					if (b.contains(c.value)) {
-						this.setButtonGroupCSS(c)
+						if (c.className == "fabrikinput ") {   // for J3
+							this.setButtonGroupCSS(c)
+						}
+						else if (c.className == "fabrikinput radio") {  // for J2.5
+							c.setProperty('checked', 'checked');
+						}
 					}
 				}.bind(this));
 			} else {
 				a.each(function (c) {
 					if (c.value === b) {
-						this.setButtonGroupCSS(c)
+						if (c.className == "fabrikinput ") {   // for J3
+							this.setButtonGroupCSS(c)
+						}
+						else if (c.className == "fabrikinput radio") {  // for J2.5
+							c.setProperty('checked', 'checked');
+						}
 					}
 				}.bind(this));
 			}
