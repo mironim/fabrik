@@ -12,11 +12,11 @@ window.FbRadio = new Class({
 		btnGroup: true
 	},
 
-	type: 'radio', // sub element type
+	type: "radio", // sub element type
 
-	initialize: function (element, options) {
-		this.plugin = 'fabrikradiobutton';
-		this.parent(element, options);
+	initialize: function (b, a) {
+		this.plugin = "fabrikradiobutton";
+		this.parent(b, a);
 		this.btnGroup();
 	},
 
@@ -28,86 +28,90 @@ window.FbRadio = new Class({
 		// Turn radios into btn-group
 		this.btnGroupRelay();
 
-		var c = this.getContainer();
-		if (!c) {
+		var a = this.getContainer();
+		if (!a) {
 			return;
 		}
-		c.getElements('.radio.btn-group label').addClass('btn');
+		a.getElements(".radio.btn-group label").addClass("btn");
 
 
-		c.getElements(".btn-group input[checked=checked]").each(function (input) {
-			var label = input.getParent('label');
-			v = input.get('value');
-			if (v === '') {
-				label.addClass('active btn-primary');
-			} else if (v === '0') {
-				label.addClass('active btn-danger');
+		a.getElements(".btn-group input[checked=checked]").each(function (b) {
+			var c = b.getParent("label");
+			v = b.get("value");
+			if (v === "") {
+				c.addClass("active btn-primary")
 			} else {
-				label.addClass('active btn-success');
+				if (v === "0") {
+					c.addClass("active btn-danger")
+				} else {
+					c.addClass("active btn-success")
+				}
 			}
 		});
 	},
 
 	btnGroupRelay: function () {
-		var c = this.getContainer();
-		if (!c) {
+		var a = this.getContainer();
+		if (!a) {
 			return;
 		}
-		c.getElements('.radio.btn-group label').addClass('btn');
-		c.addEvent('mouseup:relay(.btn-group label)', function (e, label) {
-			var id = label.get('for'), input;
-			if (id !== '') {
-				input = document.id(id);
+		a.getElements(".radio.btn-group label").addClass("btn");
+		a.addEvent("mouseup:relay(.btn-group label)", function (d, c) {
+			var f = c.get("for"),
+				b;
+			if (f !== "") {
+				b = document.id(f)
 			}
-			if (typeOf(input) === 'null') {
-				input = label.getElement('input');
+			if (typeOf(b) === "null") {
+				b = c.getElement("input")
 			}
-			this.setButtonGroupCSS(input);
+			this.setButtonGroupCSS(b)
 		}.bind(this));
 	},
 
-	setButtonGroupCSS: function (input) {
-		var label;
-		if (input.id !== '') {
-			label = document.getElement('label[for=' + input.id + ']');
+	setButtonGroupCSS: function (b) {
+		var c;
+		if (b.id !== "") {
+			c = document.getElement("label[for=" + b.id + "]")
 		}
-		if (typeOf(label) === 'null') {
-			label = input.getParent('label.btn');
+		if (typeOf(c) === "null") {
+			c = b.getParent("label.btn")
 		}
-		var v = input.get('value');
-		if (!input.get('checked')) {
-			label.getParent('.btn-group').getElements('label').removeClass('active').removeClass('btn-success').removeClass('btn-danger').removeClass('btn-primary');
-			if (v === '') {
-				label.addClass('active btn-primary');
-			} else if (v.toInt() === 0) {
-				label.addClass('active btn-danger');
+		var a = b.get("value");
+		if (!b.get("checked")) {
+			c.getParent(".btn-group").getElements("label").removeClass("active").removeClass("btn-success").removeClass("btn-danger").removeClass("btn-primary");
+			if (a === "") {
+				c.addClass("active btn-primary")
 			} else {
-				label.addClass('active btn-success');
+				if (a.toInt() === 0) {
+					c.addClass("active btn-danger")
+				} else {
+					c.addClass("active btn-success")
+				}
 			}
-			input.set('checked', true);
+			b.set("checked", true)
 		}
 	},
 
 	watchAddToggle: function () {
-		var c = this.getContainer();
-		var d = c.getElement('div.addoption');
-		var a = c.getElement('.toggle-addoption');
+		var h = this.getContainer();
+		var f = h.getElement("div.addoption");
+		var b = h.getElement(".toggle-addoption");
 		if (this.mySlider) {
-			// Copied in repeating group so need to remove old slider html first
-			var clone = d.clone();
-			var fe = c.getElement('.fabrikElement');
-			d.getParent().destroy();
-			fe.adopt(clone);
-			d = c.getElement('div.addoption');
-			d.setStyle('margin', 0);
+			var g = f.clone();
+			var e = h.getElement(".fabrikElement");
+			f.getParent().destroy();
+			e.adopt(g);
+			f = h.getElement("div.addoption");
+			f.setStyle("margin", 0)
 		}
-		this.mySlider = new Fx.Slide(d, {
-			duration : 500
+		this.mySlider = new Fx.Slide(f, {
+			duration: 500
 		});
 		this.mySlider.hide();
-		a.addEvent('click', function (e) {
-			e.stop();
-			this.mySlider.toggle();
+		b.addEvent("click", function (a) {
+			a.stop();
+			this.mySlider.toggle()
 		}.bind(this));
 	},
 
@@ -115,62 +119,59 @@ window.FbRadio = new Class({
 		if (!this.options.editable) {
 			return this.options.value;
 		}
-		var v = '';
-		this._getSubElements().each(function (sub) {
-			if (sub.checked) {
-				v = sub.get('value');
-				return v;
+		var a = "";
+		this._getSubElements().each(function (b) {
+			if (b.checked) {
+				a = b.get("value");
+				return a
 			}
 			return null;
 		});
-		return v;
+		return a;
 	},
 
-	setValue: function (v) {
+	setValue: function (a) {
 		if (!this.options.editable) {
-			return;
+			return
 		}
-		this._getSubElements().each(function (sub) {
-			if (sub.value === v) {
-				sub.checked = 'checked';
+		this._getSubElements().each(function (b) {
+			if (b.value === a) {
+				b.checked = "checked"
 			}
 		});
 	},
 
-	update: function (val) {
+	update: function (b) {
 		if (!this.options.editable) {
-			if (val === '') {
-				this.element.innerHTML = '';
-				return;
+			if (b === "") {
+				this.element.innerHTML = "";
+				return
 			}
-			this.element.innerHTML = $H(this.options.data).get(val);
-			return;
+			this.element.innerHTML = $H(this.options.data).get(b);
+			return
 		} else {
-			var els = this._getSubElements();
-			if (typeOf(val) === 'array') {
-				els.each(function (el) {
-					if (val.contains(el.value)) {
-						//el.setProperty('checked', 'checked');
-						this.setButtonGroupCSS(el);
-						//el.fireEvent('click');
+			var a = this._getSubElements();
+			if (typeOf(b) === "array") {
+				a.each(function (c) {
+					if (b.contains(c.value)) {
+						this.setButtonGroupCSS(c)
 					}
 				}.bind(this));
 			} else {
-				els.each(function (el) {
-					if (el.value === val) {
-						//el.setProperty('checked', 'checked');
-						this.setButtonGroupCSS(el);
+				a.each(function (c) {
+					if (c.value === b) {
+						this.setButtonGroupCSS(c)
 					}
 				}.bind(this));
 			}
 		}
 	},
 
-	cloned: function (c) {
+	cloned: function (a) {
 		if (this.options.allowadd === true && this.options.editable !== false) {
 			this.watchAddToggle();
 			this.watchAdd();
 		}
-		this.parent(c);
+		this.parent(a)
 	}
 });
